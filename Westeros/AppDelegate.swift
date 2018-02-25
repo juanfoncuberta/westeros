@@ -22,7 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
         let houses = Repository.local.houses
-        
+        //let seasons = Repository.local.seasons
+       
         
        
         //creamos los controladores(masterVC, detailVC)

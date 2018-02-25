@@ -48,7 +48,7 @@ extension Season{
 //MARK: - CustomStringConvertible
 extension Season: CustomStringConvertible{
     var description: String {
-        return "(\(name), \(convertDateToString(date:releaseDate)), \(_episodes.count)"
+        return "\(name), \(convertDateToString(date:releaseDate)), \(_episodes.count)"
     }
 }
 //MARK: - Hashable
