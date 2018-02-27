@@ -36,9 +36,12 @@ extension Season{
     
     func convertDateToString(date:Date)->String{
         let formatter = DateFormatter()
+        formatter.dateFormat = "dd-MM-yyyy"
         return formatter.string(from: date)
     }
-    
+    var sortedEpisodes: [Episode]{
+        return _episodes.sorted()
+    }
     var count:Int{
         return _episodes.count
     }

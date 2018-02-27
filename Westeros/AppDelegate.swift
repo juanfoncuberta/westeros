@@ -22,27 +22,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
         let houses = Repository.local.houses
-        //let seasons = Repository.local.seasons
+        let seasons = Repository.local.seasons
        
         
        
         //creamos los controladores(masterVC, detailVC)
         
+        let seasonListVC = SeasonListViewController(model:seasons)
         let houseListVC = HouseListTableViewController(model:houses)
         
         let lastSelectedHouse = houseListVC.lastSelectedHouse()
         let houseDetailVC = HouseDetailViewController(model: lastSelectedHouse)
+        let seasonDetailVC = SeasonDetailViewController(model: seasons.first!)
         
         //Asignamos el delegado
         houseListVC.delegate = houseDetailVC
+        seasonListVC.delegate = seasonDetailVC
+    
         
+        
+        let masterTabBarVC = UITabBarController()
+        masterTabBarVC.viewControllers = [houseListVC.wrappedInNavigation(),seasonListVC.wrappedInNavigation()]
         //Crear UISplitVC y le asignamos los VC
         let splitVC = UISplitViewController()
-        splitVC.viewControllers = [houseListVC.wrappedInNavigation(),houseDetailVC.wrappedInNavigation()]
-        
+        splitVC.viewControllers = [masterTabBarVC,seasonDetailVC.wrappedInNavigation()]
+//            splitVC.viewControllers = [houseListVC.wrappedInNavigation(),houseDetailVC.wrappedInNavigation()]
         //asignamos al rootVC
   
-       // window?.rootViewController = houseListVC.wrappedInNavigation()
         window?.rootViewController = splitVC
         
         UINavigationBar.appearance().backgroundColor = .blue
