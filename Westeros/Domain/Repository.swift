@@ -8,6 +8,11 @@
 
 import Foundation
 var inputFormatter: DateFormatter!
+enum Houses: String {
+    case Stark = "Stark"
+    case Lannister = "Lannister"
+    case Targaryen = "Targaryen"
+}
 
 final class Repository {
     static let local = LocalFactory()
@@ -21,8 +26,10 @@ protocol SeasonFactory {
 }
 protocol HouseFactory {
     typealias FilterHouse = (House) ->Bool
+
     var houses: [House]{ get }
     func house(named: String)->House?
+ func house (named name: Houses) -> House?
     func houses(filteredBy:FilterHouse)->[House]
 }
 
@@ -129,7 +136,8 @@ extension LocalFactory:SeasonFactory{
 }
 //MARK: - HouseFactory
 extension LocalFactory: HouseFactory{
- 
+    
+    
     var houses: [House]{
        //Houses creation 
         let lannisterSigil = Sigil(image:#imageLiteral(resourceName: "lannister.jpg"),description:"Leon Rampante")
@@ -140,24 +148,24 @@ extension LocalFactory: HouseFactory{
         let targaryenSigil = Sigil(image: #imageLiteral(resourceName: "targaryenSmall.jpg"), description: "Dragon tricefalo")
         let targaryenHouse = House(name: "Targaryen", sigil: targaryenSigil, words: "Fuego y sangre", url: URL(string:"https://awoiaf.westeros.org/index.php/House_Targaryen")!)
         
-        let robb = Person(name:"Robb",alias:"El Joven Lobo",house:starkHouse);
-        let aria = Person(name:"Aria",house:starkHouse);
+         Person(name:"Robb",alias:"El Joven Lobo",house:starkHouse);
+          Person(name:"Aria",house:starkHouse);
         
-        let tyrion = Person(name:"Tyrion",alias:"El enano",house:lannisterHouse);
-        let cersei = Person(name:"Cersei",house: lannisterHouse)
-        let jaime = Person(name: "Jaime", alias: "El matareyes", house: lannisterHouse)
+          Person(name:"Tyrion",alias:"El enano",house:lannisterHouse);
+          Person(name:"Cersei",house: lannisterHouse)
+          Person(name: "Jaime", alias: "El matareyes", house: lannisterHouse)
         
-        let dani = Person(name: "Daenerys", alias: "Madre de Dragones", house: targaryenHouse)
+        Person(name: "Daenerys", alias: "Madre de Dragones", house: targaryenHouse)
         
         
-        starkHouse.add(person:aria)
-        starkHouse.add(person:robb)
-        
-        lannisterHouse.add(person:tyrion)
-        lannisterHouse.add(person:cersei)
-        lannisterHouse.add(person:jaime)
-        
-        targaryenHouse.add(person: dani)
+//        starkHouse.add(person:aria)
+//        starkHouse.add(person:robb)
+//        
+//        lannisterHouse.add(person:tyrion)
+//        lannisterHouse.add(person:cersei)
+//        lannisterHouse.add(person:jaime)
+//        
+//        targaryenHouse.add(person: dani)
         
         
         return [starkHouse,lannisterHouse,targaryenHouse].sorted()
@@ -165,6 +173,11 @@ extension LocalFactory: HouseFactory{
     func house(named name: String) -> House? {
       
         let house = houses.first{$0.name.uppercased() == name.uppercased()}
+        return house
+    }
+    func house (named name: Houses) -> House? {
+        
+        let house = houses.first{$0.name.uppercased() == name.rawValue.uppercased()}
         return house
     }
     func houses(filteredBy: FilterHouse) -> [House] {

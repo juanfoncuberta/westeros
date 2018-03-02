@@ -69,8 +69,6 @@ class EpisodeDetailViewController: UIViewController {
 extension EpisodeDetailViewController: EpisodeListViewControllerDelegate{
     func EpisodeListViewController(_ vc: EpisodeListViewController, didSelectEpisode episode: Episode) {
         self.model = episode
-        print("hola")
-        print(episode)
         syncModelEpisodeDVC()
          navigationController?.pushViewController(self, animated: true)
     }

@@ -7,14 +7,17 @@
 //
 
 import UIKit
-
+protocol MemberListViewControllerDelegate: class{
+    func MemberListViewController(_ vc:MemberListViewController)
+}
 class MemberListViewController: UIViewController {
 
     //MARK: - Outlets
     @IBOutlet weak var tableView: UITableView!
     
    // Mark: - Properties
-    let model: [Person]
+    var model: [Person]
+    weak var delegate: MemberListViewControllerDelegate?
     
     // Mark: - Initialization
     init(model: [Person]) {
@@ -37,7 +40,37 @@ class MemberListViewController: UIViewController {
         // Asignamos la fuente de datos
         tableView.dataSource = self
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //Nos damos de alta en las notificaciones
+        let noticationCenter = NotificationCenter.default
+        noticationCenter.addObserver(self,selector:#selector(self.houseDidChange),name:Notification.Name(HOUSE_DID_CHANGE_NOTIFICATION_NAME),object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        //Nos damos de baja en las notificationes
+        let noticationCenter = NotificationCenter.default
+        noticationCenter.removeObserver(self)
+    }
+    
+    @objc func houseDidChange(notication: Notification){
+        //extraer el userinfo de la notificacion
+        //let info = notication.userInfo!
+        guard let info = notication.userInfo else{ return }
+        //sacar la casa del userinfo
+        let house = info[HOUSE_KEY] as? House!
+        //actualizar modelo
+        model = house!.sortedMembers
+        //sincronizar vista
+        self.tableView?.reloadData()
+        
+    }
+
+
 }
+
+
 
 // MARK: - UITableViewDataSource
 extension MemberListViewController: UITableViewDataSource {
@@ -53,10 +86,7 @@ extension MemberListViewController: UITableViewDataSource {
         let person = model[indexPath.row]
         
         // Preguntar por una celda (a una cache) o Crearla
-        //        var cell = tableView.dequeueReusableCell(withIdentifier: cellId)
-        //        if cell == nil {
-        //            cell = UITableViewCell(style: .default, reuseIdentifier: cellId)
-        //        }
+    
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId)
             ?? UITableViewCell(style: .default, reuseIdentifier: cellId)
         
@@ -70,6 +100,16 @@ extension MemberListViewController: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 extension MemberListViewController: UITableViewDelegate {
-    
+   
+    func tableView(_ tableView: UITableView,didSelectRowAt indexPath: IndexPath) {
+        let member = model[indexPath.row]
+        print(member)
+        let memberDetailVC = MemberDetailViewController(model: member)
+        navigationController?.pushViewController(memberDetailVC, animated: true)
+        
+        delegate?.MemberListViewController(self)
+        
+        
+    }
 }
 

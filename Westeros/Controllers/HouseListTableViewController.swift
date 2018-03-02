@@ -103,6 +103,7 @@ class HouseListTableViewController: UITableViewController {
         let notification = Notification(name: Notification.Name(HOUSE_DID_CHANGE_NOTIFICATION_NAME), object: self, userInfo: [HOUSE_KEY:house])
         
         notificationCenter.post(notification)
+ 
         
         //crear controlador detalle de esa casa
         //let houseDetailVC = HouseDetailViewController(model: house)

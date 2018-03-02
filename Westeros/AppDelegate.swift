@@ -9,10 +9,18 @@
 import UIKit
 
 @UIApplicationMain
+
+
+
+
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var houseDetailVC: HouseDetailViewController!
+    var seasonDetailVC: SeasonDetailViewController!
 
+   
+    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -24,36 +32,50 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let houses = Repository.local.houses
         let seasons = Repository.local.seasons
        
+//        var seasonListVC = SeasonListViewController()
+//        var houseListVC = HouseListTableViewController()
         
        
         //creamos los controladores(masterVC, detailVC)
         
         let seasonListVC = SeasonListViewController(model:seasons)
-        let houseListVC = HouseListTableViewController(model:houses)
+        let  houseListVC = HouseListTableViewController(model:houses)
         
         let lastSelectedHouse = houseListVC.lastSelectedHouse()
-        let houseDetailVC = HouseDetailViewController(model: lastSelectedHouse)
-        let seasonDetailVC = SeasonDetailViewController(model: seasons.first!)
+        
+        houseDetailVC = HouseDetailViewController(model: lastSelectedHouse)
+         seasonDetailVC = SeasonDetailViewController(model: seasons.first!)
         
         //Asignamos el delegado
         houseListVC.delegate = houseDetailVC
         seasonListVC.delegate = seasonDetailVC
+        
+        
+
     
         
         
+//        let masterTabBarVC = TabBarController()
         let masterTabBarVC = UITabBarController()
+        masterTabBarVC.delegate = self
         masterTabBarVC.viewControllers = [houseListVC.wrappedInNavigation(),seasonListVC.wrappedInNavigation()]
+       
         //Crear UISplitVC y le asignamos los VC
+        
         let splitVC = UISplitViewController()
-        splitVC.viewControllers = [masterTabBarVC,seasonDetailVC.wrappedInNavigation()]
-//            splitVC.viewControllers = [houseListVC.wrappedInNavigation(),houseDetailVC.wrappedInNavigation()]
+        
+            splitVC.viewControllers = [masterTabBarVC,houseDetailVC.wrappedInNavigation()]
+        
         //asignamos al rootVC
-  
         window?.rootViewController = splitVC
         
-        UINavigationBar.appearance().backgroundColor = .blue
+//        UINavigationBar.appearance().backgroundColor = .blue
         
         return true
+    }
+    
+     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        print("esto va??")
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -80,4 +102,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 }
+
+extension AppDelegate:UITabBarControllerDelegate{
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+      
+        let vc = viewController.childViewControllers[0]
+        var detailVC = UIViewController()
+        if(vc is SeasonListViewController){
+             detailVC = seasonDetailVC
+        }else if(vc is HouseListTableViewController){
+             detailVC = houseDetailVC
+        }
+        
+       vc.showDetailViewController(detailVC.wrappedInNavigation(), sender:self )
+    }
+
+}
+
+
+
+
 

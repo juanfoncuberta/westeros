@@ -112,12 +112,11 @@ extension EpisodeListViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView,didSelectRowAt indexPath: IndexPath) {
         let episode = model[indexPath.row]
         print(episode)
+        let episodeDetailVC = EpisodeDetailViewController(model: episode)
+        navigationController?.pushViewController(episodeDetailVC, animated: true)
+
         delegate?.EpisodeListViewController(self,didSelectEpisode:episode)
         
-//        let notificationCenter = NotificationCenter.default
-//        let notification = Notification(name: Notification.Name(EPISODE_DID_CHANGE_NOTIFICATION_NAME), object: self, userInfo: [EPISODE_KEY:episode])
-//
-//        notificationCenter.post(notification)
         
     }
 }

@@ -68,6 +68,7 @@ class WikiViewController: UIViewController {
         //let info = notication.userInfo!
         guard let info = notication.userInfo else{ return }
         //sacar la casa del userinfo
+
         let house = info[HOUSE_KEY] as? House!
         //actualizar modelo
         model = house!
