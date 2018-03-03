@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var houseDetailVC: HouseDetailViewController!
     var seasonDetailVC: SeasonDetailViewController!
+    var splitVC: UISplitViewController!
 
    
     
@@ -42,9 +43,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let  houseListVC = HouseListTableViewController(model:houses)
         
         let lastSelectedHouse = houseListVC.lastSelectedHouse()
+        let lastSelectedSeason = seasonListVC.lastSelectedSeason()
         
         houseDetailVC = HouseDetailViewController(model: lastSelectedHouse)
-         seasonDetailVC = SeasonDetailViewController(model: seasons.first!)
+         seasonDetailVC = SeasonDetailViewController(model: lastSelectedSeason)
         
         //Asignamos el delegado
         houseListVC.delegate = houseDetailVC
@@ -62,9 +64,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
        
         //Crear UISplitVC y le asignamos los VC
         
-        let splitVC = UISplitViewController()
-        
-            splitVC.viewControllers = [masterTabBarVC,houseDetailVC.wrappedInNavigation()]
+        splitVC =  UISplitViewController()
+        splitVC.delegate = self
+        print("appdelegate")
+        print(splitVC.isCollapsed)
+        splitVC.viewControllers = [masterTabBarVC,houseDetailVC]
         
         //asignamos al rootVC
         window?.rootViewController = splitVC
@@ -74,9 +78,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        print("esto va??")
-    }
+   
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -105,7 +107,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate:UITabBarControllerDelegate{
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-      
+        print("hola")
+      print(splitVC.isCollapsed)
         let vc = viewController.childViewControllers[0]
         var detailVC = UIViewController()
         if(vc is SeasonListViewController){
@@ -116,7 +119,21 @@ extension AppDelegate:UITabBarControllerDelegate{
         
        vc.showDetailViewController(detailVC.wrappedInNavigation(), sender:self )
     }
+    
+    
+ 
 
+}
+
+extension AppDelegate: UISplitViewControllerDelegate{
+ 
+    func primaryViewController(forCollapsing splitViewController: UISplitViewController)->UIViewController?{
+        return splitVC.viewControllers.first
+    }
+    
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController)->Bool{
+        return true
+    }
 }
 
 

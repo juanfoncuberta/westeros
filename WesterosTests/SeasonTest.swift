@@ -32,14 +32,17 @@ class SeasonTest: XCTestCase {
         inputFormatter.dateFormat = "dd/mm/yyyy"
          dateFirstSeason = inputFormatter.date(from:"17/04/2011")
          firstEpisodeFirstSeason = Episode(title:"Winter Is Coming", airDate: dateFirstSeason!)
-         firstSeason = Season(name:"Winter Is Coming",releaseDate:dateFirstSeason!,episode: firstEpisodeFirstSeason)
+         firstSeason = Season(name:"Winter Is Coming",releaseDate:dateFirstSeason!)
+        firstSeason.add(episode: firstEpisodeFirstSeason)
 
      dateSecondSeason = inputFormatter.date(from:"01/04/2012")
         firstEpisodeSecondSeason = Episode(title: "The North Remembers", airDate: dateSecondSeason!)
-        secondSeason = Season(name: "The North Remembers", releaseDate: dateSecondSeason!, episode: firstEpisodeSecondSeason)
+        secondSeason = Season(name: "The North Remembers", releaseDate: dateSecondSeason!)
+        secondSeason.add(episode: firstEpisodeSecondSeason)
         
         
-        fSeason = Season(name:"Winter Is Coming",releaseDate:dateFirstSeason!,episode: firstEpisodeFirstSeason)
+        fSeason = Season(name:"Winter Is Coming",releaseDate:dateFirstSeason!)
+        fSeason.add(episode: firstEpisodeFirstSeason)
         
     }
     

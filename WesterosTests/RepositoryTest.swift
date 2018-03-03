@@ -54,9 +54,9 @@ class RepositoryTest: XCTestCase {
     func testLocalRepositoryReturnHouseTypesafe(){
         let stark = Repository.local.house(named: .Stark)
         let lannister = Repository.local.house(named: .Lannister)
-        let keepcoding  = Repository.local.house(named: .Targaryen)
+        
         XCTAssertEqual(stark?.name, "Stark")
-         XCTAssertNotEqual(lannister?.name, "Stark")
+        XCTAssertNotEqual(lannister?.name, "Stark")
     }
     
 }

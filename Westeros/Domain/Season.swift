@@ -18,11 +18,11 @@ final class Season{
     let releaseDate:Date
     private var _episodes: Episodes
     
-    init(name:String, releaseDate:Date, episode: Episode) {
+    init(name:String, releaseDate:Date) {
         self.name = name
         self.releaseDate = releaseDate
         _episodes = Episodes()
-        self.add(episode: episode)
+        
     }
     
 }

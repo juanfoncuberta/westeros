@@ -47,7 +47,8 @@ extension LocalFactory:SeasonFactory{
         let firstEFirstS = Episode(title:"Winter Is Coming", airDate: releaseDateFirstS!)
         let secondEFirstS = Episode(title:"The Kingsroad", airDate: inputFormatter.date(from:"24-04-2011")!)
         
-        let firstS = Season(name:"First Season",releaseDate:releaseDateFirstS!,episode: firstEFirstS)
+        let firstS = Season(name:"First Season",releaseDate:releaseDateFirstS!)
+        firstS.add(episode: firstEFirstS)
         firstS.add(episode: secondEFirstS)
     
         
@@ -57,7 +58,8 @@ extension LocalFactory:SeasonFactory{
         let firstESecondS = Episode(title:"The North Remembers", airDate: releaseDateSecondS!)
         let secondESecondS = Episode(title:"The Night Lands", airDate: inputFormatter.date(from:"08-04-2012")!)
         
-        let secondS = Season(name:"Second Season",releaseDate:releaseDateSecondS!,episode: firstESecondS)
+        let secondS = Season(name:"Second Season",releaseDate:releaseDateSecondS!)
+        secondS.add(episode:firstESecondS)
         secondS.add(episode: secondESecondS)
         
         
@@ -67,7 +69,8 @@ extension LocalFactory:SeasonFactory{
         let firstEThirdS = Episode(title:"Valar Dohaeris", airDate: releaseDateThirdS!)
         let secondEThirdS = Episode(title:"Dark Wings, Dark Words", airDate: inputFormatter.date(from:"07-04-2013")!)
         
-        let thirdS = Season(name:"Third Season",releaseDate:releaseDateThirdS!,episode: firstEThirdS)
+        let thirdS = Season(name:"Third Season",releaseDate:releaseDateThirdS!)
+        thirdS.add(episode: firstEThirdS)
         thirdS.add(episode: secondEThirdS)
         
         
@@ -77,7 +80,8 @@ extension LocalFactory:SeasonFactory{
         let firstEFourthS = Episode(title:"Two Swords", airDate: releaseDateFourthS!)
         let secondEFourthS = Episode(title:"The Lion and the Rose", airDate: inputFormatter.date(from:"13-04-2014")!)
         
-        let fourthS = Season(name:"Fourth Season",releaseDate:releaseDateFourthS!,episode: firstEFourthS)
+        let fourthS = Season(name:"Fourth Season",releaseDate:releaseDateFourthS!)
+        fourthS.add(episode: firstEFourthS)
         fourthS.add(episode: secondEFourthS)
         
         
@@ -87,7 +91,8 @@ extension LocalFactory:SeasonFactory{
         let firstEFifthS = Episode(title:"The Wars to Come", airDate: releaseDateFifthS!)
         let secondEFifthS = Episode(title:"The House of Black and White", airDate: inputFormatter.date(from:"19-04-2015")!)
         
-        let fifthS = Season(name:"Fifth Season",releaseDate:releaseDateFifthS!,episode: firstEFifthS)
+        let fifthS = Season(name:"Fifth Season",releaseDate:releaseDateFifthS!)
+        fifthS.add(episode: firstEFifthS)
         fifthS.add(episode: secondEFifthS)
         
         
@@ -97,7 +102,8 @@ extension LocalFactory:SeasonFactory{
         let firstESixthS = Episode(title:"The Red Woman", airDate: releaseDateSixthS!)
         let secondESixthS = Episode(title:"Home", airDate: inputFormatter.date(from:"01-05-2016")!)
         
-        let sixthS = Season(name:"Sixth Season",releaseDate:releaseDateSixthS!,episode: firstESixthS)
+        let sixthS = Season(name:"Sixth Season",releaseDate:releaseDateSixthS!)
+        sixthS.add(episode: firstESixthS)
         sixthS.add(episode: secondESixthS)
         
         
@@ -107,7 +113,8 @@ extension LocalFactory:SeasonFactory{
         let firstESeventhS = Episode(title:"Dragonstone", airDate: releaseDateSeventhS!)
         let secondESeventhS = Episode(title:"Stormborn", airDate: inputFormatter.date(from:"23-07-2017")!)
         
-        let seventhS = Season(name:"Seventh Season",releaseDate:releaseDateSeventhS!,episode: firstESeventhS)
+        let seventhS = Season(name:"Seventh Season",releaseDate:releaseDateSeventhS!)
+        seventhS.add(episode: firstESeventhS)
         seventhS.add(episode: secondESeventhS)
         
         return [firstS,secondS,thirdS,fourthS,fifthS,sixthS,seventhS]
@@ -148,14 +155,14 @@ extension LocalFactory: HouseFactory{
         let targaryenSigil = Sigil(image: #imageLiteral(resourceName: "targaryenSmall.jpg"), description: "Dragon tricefalo")
         let targaryenHouse = House(name: "Targaryen", sigil: targaryenSigil, words: "Fuego y sangre", url: URL(string:"https://awoiaf.westeros.org/index.php/House_Targaryen")!)
         
-         Person(name:"Robb",alias:"El Joven Lobo",house:starkHouse);
-          Person(name:"Aria",house:starkHouse);
+         let _ = Person(name:"Robb",alias:"El Joven Lobo",house:starkHouse);
+         let _ =  Person(name:"Aria",house:starkHouse);
         
-          Person(name:"Tyrion",alias:"El enano",house:lannisterHouse);
-          Person(name:"Cersei",house: lannisterHouse)
-          Person(name: "Jaime", alias: "El matareyes", house: lannisterHouse)
+          let _ = Person(name:"Tyrion",alias:"El enano",house:lannisterHouse);
+          let _ = Person(name:"Cersei",house: lannisterHouse)
+          let _ = Person(name: "Jaime", alias: "El matareyes", house: lannisterHouse)
         
-        Person(name: "Daenerys", alias: "Madre de Dragones", house: targaryenHouse)
+        let _ = Person(name: "Daenerys", alias: "Madre de Dragones", house: targaryenHouse)
         
         
 //        starkHouse.add(person:aria)

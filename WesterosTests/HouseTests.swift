@@ -70,8 +70,8 @@ class HouseTests: XCTestCase {
 //        starkHouse.add(person:tyrion);
         XCTAssertEqual(starkHouse.count, 2)
         
-        let cersei = Person(name:"Cersei",house: lannisterHouse)
-        let jaime = Person(name: "Jaime", alias: "El matareyes", house: lannisterHouse)
+        let _ = Person(name:"Cersei",house: lannisterHouse)
+        let _ = Person(name: "Jaime", alias: "El matareyes", house: lannisterHouse)
         
 //        lannisterHouse.add(persons: cersei, jaime)
         XCTAssertEqual(lannisterHouse.count, 3)

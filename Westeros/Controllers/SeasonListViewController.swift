@@ -91,9 +91,25 @@ extension SeasonListViewController: UITableViewDataSource{
     }
 }   
 
-
+ //MARK: - LastSelected
+extension SeasonListViewController{
+    
+    func saveLastSelectedSeason(at row:Int){
+        let defaults = UserDefaults.standard
+        defaults.set(row, forKey: LAST_SEASON)
+        defaults.synchronize()
+    }
+    
+    func lastSelectedSeason()->Season{
+        
+        let row = UserDefaults.standard.integer(forKey: LAST_SEASON)
+        let season = model[row]
+        return season
+    }
+}
+ //MARK: - UITableViewDelegate
 extension SeasonListViewController: UITableViewDelegate{
-    //MARK: - TableviewDelegate
+   
     
     func tableView(_ tableView: UITableView,didSelectRowAt indexPath: IndexPath) {
      
@@ -104,6 +120,7 @@ extension SeasonListViewController: UITableViewDelegate{
         let notification = Notification(name: Notification.Name(SEASON_DID_CHANGE_NOTIFICATION_NAME), object: self, userInfo: [SEASON_KEY:season])
         
         notificationCenter.post(notification)
+        saveLastSelectedSeason(at: indexPath.row)
         
     }
 }
