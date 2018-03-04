@@ -23,6 +23,14 @@ final class Episode{
   
 }
 
+extension Episode{
+    var stringDate:String{
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd-MM-yyyy"
+        return formatter.string(from: airDate)
+    }
+}
+
 
 extension Episode: CustomStringConvertible{
     var description: String {

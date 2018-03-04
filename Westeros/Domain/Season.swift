@@ -34,10 +34,10 @@ extension Season{
         _episodes.insert(episode)
     }
     
-    func convertDateToString(date:Date)->String{
+    var stringDate:String{
         let formatter = DateFormatter()
         formatter.dateFormat = "dd-MM-yyyy"
-        return formatter.string(from: date)
+        return formatter.string(from: releaseDate)
     }
     var sortedEpisodes: [Episode]{
         return _episodes.sorted()
@@ -46,12 +46,14 @@ extension Season{
         return _episodes.count
     }
     
+    
+    
 }
 
 //MARK: - CustomStringConvertible
 extension Season: CustomStringConvertible{
     var description: String {
-        return "\(name), \(convertDateToString(date:releaseDate)), \(_episodes.count)"
+        return "\(name), \(stringDate), \(_episodes.count)"
     }
 }
 //MARK: - Hashable

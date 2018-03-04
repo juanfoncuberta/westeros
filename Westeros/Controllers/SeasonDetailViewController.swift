@@ -53,8 +53,8 @@ class SeasonDetailViewController: UIViewController {
     func syncModelSeasonLVC(){
         nameLabel.text = model.name
         nChaptersLabel.text = String(model.count)
-        //dateLabel.text = Season.convertDateToString(date: model.releaseDate)
-        dateLabel.text = "Pending publication"
+        dateLabel.text = model.stringDate
+//        dateLabel.text = "Pending publication"
     }
     
     //MARK: - Setup UI
@@ -64,7 +64,6 @@ class SeasonDetailViewController: UIViewController {
         navigationItem.rightBarButtonItem = episodesButton
     }
 
-    
     @objc func displayEpisodes(){
         
         let episodesListVC = EpisodeListViewController(model:model.sortedEpisodes)

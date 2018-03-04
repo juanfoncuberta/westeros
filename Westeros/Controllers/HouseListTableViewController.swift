@@ -12,6 +12,7 @@ let HOUSE_DID_CHANGE_NOTIFICATION_NAME = "HouseDidChange"
 let HOUSE_KEY = "HouseKey"
 let LAST_HOUSE = "LastHouse"
 
+var houseDetailVC: HouseDetailViewController!
 protocol HouseListTableViewControllerDelegate: class {
     //Should, will, did
     func HouseListTableViewController(_ vc: HouseListTableViewController,didSelectHouse house: House)
@@ -106,9 +107,10 @@ class HouseListTableViewController: UITableViewController {
  
         
         //crear controlador detalle de esa casa
-        //let houseDetailVC = HouseDetailViewController(model: house)
+//        let houseDetailVC = HouseDetailViewController(model: house)
         //hacer push
-        //navigationController?.pushViewController(houseDetailVC, animated: true)
+//        splitViewController?.showDetailViewController(houseDetailVC.wrappedInNavigation(), sender: nil)
+//        navigationController?.pushViewController(houseDetailVC, animated: true)
         
         
         //Guardar las corrdenadas (section, row) de la ultima casa seleccionada
@@ -137,4 +139,16 @@ extension HouseListTableViewController{
         // Devolverla
         return house
     }
+}
+
+
+extension HouseListTableViewController: HouseListTableViewControllerDelegate{
+    func HouseListTableViewController(_ vc: HouseListTableViewController, didSelectHouse house: House) {
+
+        houseDetailVC = HouseDetailViewController(model: house)
+
+        navigationController?.pushViewController(houseDetailVC, animated: true)
+    }
+    
+    
 }

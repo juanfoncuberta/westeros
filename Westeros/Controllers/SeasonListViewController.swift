@@ -12,7 +12,7 @@ let LAST_SEASON = "LastSeason"
 let SEASON_KEY = "SeasonKey"
 let SEASON_DID_CHANGE_NOTIFICATION_NAME = "SeasonDidChange"
 
-
+var seasonDetailVC: SeasonDetailViewController!
 
 protocol SeasonListViewControllerDelegate: class {
     
@@ -123,5 +123,17 @@ extension SeasonListViewController: UITableViewDelegate{
         saveLastSelectedSeason(at: indexPath.row)
         
     }
+}
+
+
+extension SeasonListViewController: SeasonListViewControllerDelegate{
+    func SeasonListViewController(_ vc: SeasonListViewController, didSelectSeason season: Season) {
+        
+        seasonDetailVC = SeasonDetailViewController(model:season)
+        
+        navigationController?.pushViewController(seasonDetailVC, animated: true)
+    }
+    
+    
 }
 

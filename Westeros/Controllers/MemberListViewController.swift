@@ -103,7 +103,6 @@ extension MemberListViewController: UITableViewDelegate {
    
     func tableView(_ tableView: UITableView,didSelectRowAt indexPath: IndexPath) {
         let member = model[indexPath.row]
-        print(member)
         let memberDetailVC = MemberDetailViewController(model: member)
         navigationController?.pushViewController(memberDetailVC, animated: true)
         

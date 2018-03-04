@@ -50,7 +50,7 @@ class EpisodeDetailViewController: UIViewController {
 //MARK: - Sync
     func syncModelEpisodeDVC(){
         titleLabel.text = model.title
-        airDateLabel.text = "Pending publication"
+        airDateLabel.text = model.stringDate
        // print(titleLabel!.text)
        
     }
