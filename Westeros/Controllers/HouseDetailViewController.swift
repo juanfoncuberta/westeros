@@ -60,7 +60,9 @@ class HouseDetailViewController: UIViewController {
         houseNameLabel.text = "House \(model.name)"
         sigilImageView.image = model.sigil.image
         wordsLabel.text = model.words
-        
+        let backItem = UIBarButtonItem()
+        backItem.title = model.name
+        navigationItem.backBarButtonItem = backItem
         
     }
     

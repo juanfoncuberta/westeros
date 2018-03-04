@@ -68,21 +68,13 @@ class EpisodeListViewController: UIViewController {
         
         let season = info[SEASON_KEY] as? Season!
         model = season!.sortedEpisodes
+
         self.tableView?.reloadData()
       
         
     }
+    
 
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 extension EpisodeListViewController: UITableViewDataSource{
@@ -111,7 +103,6 @@ extension EpisodeListViewController: UITableViewDataSource{
 extension EpisodeListViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView,didSelectRowAt indexPath: IndexPath) {
         let episode = model[indexPath.row]
-        print(episode)
         let episodeDetailVC = EpisodeDetailViewController(model: episode)
         navigationController?.pushViewController(episodeDetailVC, animated: true)
 

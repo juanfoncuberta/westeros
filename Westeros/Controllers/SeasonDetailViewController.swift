@@ -54,7 +54,11 @@ class SeasonDetailViewController: UIViewController {
         nameLabel.text = model.name
         nChaptersLabel.text = String(model.count)
         dateLabel.text = model.stringDate
-//        dateLabel.text = "Pending publication"
+        
+        let backItem = UIBarButtonItem()
+        backItem.title = model.name
+        navigationItem.backBarButtonItem = backItem
+
     }
     
     //MARK: - Setup UI
